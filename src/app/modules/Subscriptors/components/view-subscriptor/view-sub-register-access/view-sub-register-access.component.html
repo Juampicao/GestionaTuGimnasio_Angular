@@ -1,0 +1,16 @@
+<app-my-header [title]="'Ver Registro de accesos del subscriptor'"></app-my-header>
+
+<!-- Registro: {{notes.length > 0? notes.parseNotes: "No hay ningun registro de accesso."}} -->
+
+<ng-container> {{notesList.notes.length > 0 ? "" : "No hay ningún registro de acceso."}}</ng-container>
+
+Listado:
+<ng-container *ngIf="notesList.notes && notesList.notes.length > 0">
+    <div *ngFor="let note of notesList.notes;  let i = index;" class="m-2">
+        <p> <strong> Registro</strong> n°{{i + 1}}</p>
+        <div class="pl-2 mb-2">
+            <p> <strong> Entrada: </strong> {{ note.entryDate }}</p>
+            <p> <strong> Salida: </strong> {{ note.exitDate ? note.exitDate : "No registro la salida." }}</p>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,64 @@
+<!-- <form class="example-form flex flex-col">
+    <mat-label>{{title}}</mat-label>
+    <mat-form-field class="example-full-width items-center align-items-center" appearance="outline">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" class="mat-option:hover">
+                {{option.label}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form> -->
+
+<!-- <form class="example-form flex flex-col">
+    <mat-label>{{title}}</mat-label>
+    <mat-form-field class="example-full-width items-center align-items-center" appearance="outline">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" class="mat-option:hover">
+                {{option.label}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form> -->
+
+
+
+<form class="example-form ">
+
+    <ng-container *ngIf="isOptionList">
+        <!-- <mat-label class="">{{title}}</mat-label> -->
+        <mat-form-field class="example-full-width w-full" appearance="outline">
+            <div class="input-container">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" matInput placeholder={{title}} [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-icon class="clear-icon" *ngIf="myControl.value" (click)="onClear()">clear</mat-icon>
+
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                (optionSelected)="onOptionSelected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.label}}
+
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="!isOptionList">
+        <mat-form-field class="example-full-width w-full" appearance="outline">
+            <div class="input-container">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" matInput placeholder={{title}} [formControl]="myControl" [matAutocomplete]="auto">
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                (optionSelected)="onOptionSelected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.label}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </ng-container>
+</form>

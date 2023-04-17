@@ -1,0 +1,104 @@
+<h2> {{Title}} </h2>
+
+
+
+<!--!  Viejo anda perfecto -->
+<!-- <table [attr.class]="'w-full rounded-xl border scroll-x-auto ' + BackgroundColor">
+    <thead [class]="HeadBackgroundColor + ' ' + HeadTextColor + ' rounded-xl'">
+        <tr class="">
+            <th *ngIf="indexNumber">N°</th>
+            <th *ngFor="let head of HeadArray">{{head.Head}} </th>
+        </tr>
+    </thead>
+    <tbody class="">
+        <tr *ngFor="let item of GridArray;let sr=index" class="border-b">
+            <td class="py-2 pl-4 pr-2" *ngIf="indexNumber">{{sr+1}}</td>
+            <td class="py-2 px-4 text-left border-l" *ngFor="let head of HeadArray">
+                <div *ngIf="head.FieldName != ''">
+                    {{item[head.FieldName]}}
+                </div>
+                <div *ngIf="head.FieldName == ''" class="flex justify-evenly">
+                    <button (click)="edit(item)">Edit</button>
+                    <button (click)="delete(item)">Delete</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!--!  Nuevo anda perfecto -->
+<!-- <table [attr.class]="'w-full rounded-xl border scroll-x-auto ' + BackgroundColor">
+    <thead [class]="HeadBackgroundColor + ' ' + HeadTextColor + ' rounded-xl'">
+        <tr class="">
+            <th *ngIf="indexNumber">N°</th>
+            <th *ngFor="let head of HeadArray">{{head.Head}} </th>
+        </tr>
+    </thead>
+    <tbody class="">
+        <tr *ngFor="let item of GridArray;let sr=index" class="border-b">
+            <td class="py-2 pl-4 pr-2" *ngIf="indexNumber">{{sr+1}}</td>
+
+            <td *ngFor="let head of HeadArray" [class]="'py-2 px-4 text-left border-l ' + head.ClassName">
+                <div *ngIf="head.FieldName != ''">{{item[head.FieldName]}}</div>
+                <div *ngIf="head.FieldName == ''" class="flex justify-evenly">
+                    <button (click)="edit(item)">Edit</button>
+                    <button (click)="delete(item)">Delete</button>
+                </div>
+                ! Agregar un boton nuevo con especificaciones varias. Si hay, no se renderizan los botones de editar y delete.
+                <ng-container *ngIf="head.ButtonTemplate">
+                    <div [ngClass]="head.ButtonClassButton">
+                        <button (click)="head.ButtonFunction(item)">{{head.ButtonTemplate}}</button>
+                    </div>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+
+
+<!--! Anda perfecto pero sin paginador. -->
+
+<!-- ! 3° Hay que pasar el nombre de la function para que aparezca. Se completa desde el html. Ver subscriptor-list -->
+<ng-container *ngIf="isLoading">
+    <app-my-spiner></app-my-spiner>
+</ng-container>
+<ng-container *ngIf="!isLoading">
+
+    <table [attr.class]="'w-full rounded-xl border scroll-x-auto  ' + BackgroundColor">
+
+        <thead [class]="HeadBackgroundColor + ' ' + HeadTextColor + ' rounded-xl'">
+            <tr class="">
+                <th *ngIf="indexNumber">N°</th>
+                <th *ngFor="let head of HeadArray">{{head.Head}} </th>
+            </tr>
+        </thead>
+        <tbody class=" ">
+            <tr *ngFor="let item of GridArray;let sr=index" class="border-b ">
+                <td class="py-2 pl-4 pr-2" *ngIf="indexNumber">{{sr+1}}</td>
+                <!-- CAmbiar text-left por center // condicion para opcion -->
+                <td *ngFor="let head of HeadArray" [class]="'py-2 px-4 text-left border-l  ' + head.ClassName">
+
+                    <ng-container *ngIf="!head.ButtonTemplate">
+                        <div *ngIf="head.FieldName != ''">{{item[head.FieldName]}}</div>
+                        <div *ngIf="head.FieldName == ''" class="flex justify-evenly">
+
+                            <app-my-button *ngIf="onEdit" [icon]="'edit'" (click)="edit(item)"></app-my-button>
+                            <app-my-button *ngIf="onDelete" [icon]="'delete'" (click)="delete(item)"></app-my-button>
+                            <app-my-button *ngIf="onView" [icon]="'visibility'" (click)="view(item)"></app-my-button>
+                            <app-my-button *ngIf="iconFunction1 && onFunction1" [icon]="iconFunction1"
+                                (click)="function1(item)">{{labelFunction1}}</app-my-button>
+                            <app-my-button *ngIf="iconFunction2 && onFunction2" [icon]="iconFunction2"
+                                (click)="function2(item)"></app-my-button>
+                            <app-my-button *ngIf="iconFunction3 && onFunction3" [icon]="iconFunction3"
+                                (click)="function3(item)">{{labelFunction3}}</app-my-button>
+                        </div>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+
+<!--! 4° Tabla con paginador. -->

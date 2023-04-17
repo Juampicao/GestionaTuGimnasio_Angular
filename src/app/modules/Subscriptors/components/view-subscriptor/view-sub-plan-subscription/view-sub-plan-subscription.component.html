@@ -1,0 +1,55 @@
+<div class="mt-2">
+    <app-my-header [title]="'Ver Suscripcion del subscriptor'"></app-my-header>
+
+    <ng-container *ngIf="isLoading">
+        <app-my-spiner></app-my-spiner>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading">
+        <mat-card>
+            <div class="space-y-3">
+                <div class="flex items-center"><mat-icon>person</mat-icon><strong class="mr-2">Plan:</strong> {{
+                    plan.name }}</div>
+                <div class="flex items-center"><mat-icon>money</mat-icon><strong class="mr-2">Valor del Plan:</strong>
+                    {{
+                    plan.amount }}
+                </div>
+                <div class="flex items-center"><mat-icon>money</mat-icon><strong class="mr-2">Tipo de plan:</strong>
+                    {{
+                    plan.planExpirationType }}
+                </div>
+                <ng-container *ngIf="plan.planExpirationType !== 'Tiempo'">
+                    <div class="flex items-center"><mat-icon>check_circle</mat-icon><strong class="mr-2">Cantidad de
+                            usos
+                            restantes:</strong> {{
+                        getAmountUsesToExpired()
+                        }}
+                    </div>
+                </ng-container>
+                <div class="flex items-center"><mat-icon>check_circle</mat-icon><strong class="mr-2">Estado
+                        Suscripcion:</strong>
+                    <p [ngClass]="getColor()" class="rounded-xl px-3 py-1 text-white border font-bold">
+                        {{getStatusSubscription() }}
+                    </p>
+
+                </div>
+                <div class="flex items-center"><mat-icon>check_circle</mat-icon><strong class="mr-2">Proximo vencimiento
+                        de pago</strong> {{
+                    plan.getPaymentExpirationParsed() }}
+                </div>
+                <div class="flex items-center"><mat-icon>check_circle</mat-icon><strong class="mr-2">Condicion del
+                        suscriptor</strong>
+                    <p [ngClass]="getCondition() === 'Habilitado' ? 'bg-green-500' : 'bg-red-500'"
+                        class="rounded-xl px-3 py-1 text-white font-bold">
+                        {{getCondition() }}
+                    </p>
+                </div>
+                <div class="flex items-center"><mat-icon>check_circle</mat-icon><strong
+                        class="mr-2">Aclaracion:</strong> {{
+                    getStatusMessage() }}
+                </div>
+            </div>
+        </mat-card>
+    </ng-container>
+
+</div>

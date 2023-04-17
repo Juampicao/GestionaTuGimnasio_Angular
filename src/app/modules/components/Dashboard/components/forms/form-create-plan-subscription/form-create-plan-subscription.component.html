@@ -1,0 +1,92 @@
+<div class="flex ">
+    <form [formGroup]="form" action="submit" (ngSubmit)="onSubmit()" class="mx-auto p-10 bg-white border rounded-xl">
+        <p class="text-center mb-3 uppercase font-semibold text-xl"> Crear Plan Suscripcion </p>
+        <div>
+
+            <ng-container *ngIf="isLoading">
+                <app-my-spiner></app-my-spiner>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoading">
+
+                <!-- Nombre plan -->
+                <app-my-input [label]="'Nombre'" [placeholder]="'Nombre del plan'" [icon]="'credit_card'"
+                    [type]="'text'" [required]="true" [control]="$any(form.get('name'))"></app-my-input>
+
+                <div class="mb-3">
+                    <app-my-input [label]="'Fecha Calendario'" [placeholder]="'Nombre del plan'" [icon]="'time'"
+                        [type]="'toggle'" [required]="true"
+                        [control]="$any(form.get('calendarioOParticular'))"></app-my-input>
+                </div>
+
+                <!-- Tipo de plan  -->
+                <!--! Da error al cargar, pero si refrezco no. Es la unica forma de controlar el input al onCHange? -->
+                <!-- [(ngModel)]="selectedOptionExpiracion" -->
+
+                <!-- [disabled]="true"  [required]="true" -->
+                <app-my-input [label]="'Tipo de plan'" [icon]="'access_time'" [radioOptions]="expiracionOptions"
+                    [type]="'radio'" [required]="true" [control]="$any(form.get('expiracion'))"
+                    (change)="onSelectExpiracion($event)"></app-my-input>
+
+
+                <!-- Cantidad Usos -->
+                <ng-container *ngIf="!isTimeExpiration">
+                    <app-my-input [label]="'Cantidad de Usos'" [icon]="'number'" [type]="'number'" [required]="true"
+                        [control]="$any(form.get('cantidadUsos'))"></app-my-input>
+                </ng-container>
+
+                <!-- Recurrencia -->
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Recurrencia</mat-label>
+                    <mat-select [(ngModel)]="selectedOptionRecurrency" formControlName="recurrencia">
+                        <mat-option *ngFor="let option of selectOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- Dias para vencer el pago -->
+                <app-my-input [label]="'Vencimiento del pagos en dias'" title="Cantidad de dias para vencerse el pago"
+                    [icon]="'expiredTime'" [type]="'number'" [required]="true"
+                    [control]="$any(form.get('diasParaVencerPago'))"></app-my-input>
+
+                <!-- Valor -->
+                <app-my-input [label]="'Valor del plan'" [icon]="'attach_money'" [type]="'number'" [required]="true"
+                    [control]="$any(form.get('monto'))"></app-my-input>
+
+            </ng-container>
+
+        </div>
+        <div class="flex mx-auto justify-evenly my-3">
+            <button type="submit"
+                class="bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-xl text-white hover:cursor-pointer {{!form.valid ? 'opacity-50 cursor-not-allowed' : ''}}"
+                (click)="onSubmit()" [disabled]="!form.valid">Crear</button>
+            <app-my-cancel-button></app-my-cancel-button>
+        </div>
+        <div class="flex flex-col text-center my-2">
+            <button type="button" (click)="onDefaultData()">Cargar Data Defecto</button>
+            <button type="button" (click)=" initEditForm()">Cargar Data Inicial</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- <app-my-input [label]="'Tipo'" [placeholder]="'Tiempo o Cantidad'" [icon]="'access_time'"
+                        [type]="'text'" [required]="true" [control]="$any(form.get('expiracion'))"></app-my-input> -->
+
+<!-- <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Recurrencia</mat-label>
+                        <mat-select [(ngModel)]="selectOptions" formControlName="expiredTime">
+                            <mat-option *ngFor="let option of selectOptions" [value]="option.value">
+                                {{ option.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+
+<!-- ! checkbox -->
+<!-- <app-my-input label="Acepta Las Politicas?" placeholder="" type="checkbox" [icon]="'checkbox'"
+    [required]="true" [control]="$any(form.get('politics'))" [selectOptions]="selectOptions">
+</app-my-input>  -->
+<!-- !toogle -->
+<!-- <app-my-input [label]="'Tipo'" [icon]="'access_time'" [type]="'toggle'" [required]="true"
+    [control]="$any(form.get('expiracion'))"></app-my-input> -->

@@ -1,0 +1,102 @@
+<div class="flex">
+    <form [formGroup]="form" action="submit" (ngSubmit)="onSubmit()" class="mx-auto p-10 bg-white border rounded-xl">
+        <p class="text-center mb-3 uppercase font-semibold text-xl"> Crear Pago </p>
+        <div>
+
+            <ng-container *ngIf="isLoading">
+                <app-my-spiner></app-my-spiner>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoading">
+
+                <!-- Lista suscriptores -->
+                <!-- <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Subscriptor</mat-label>
+                    <mat-select [(ngModel)]="subscriptorSelected" formControlName="pagador">
+                        <mat-option *ngFor="let option of selectSubscriptorOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+
+                <!-- Lista suscriptores -->
+                <ng-container *ngIf="selectSubscriptorOptions.length" class="mt-5">
+                    <app-my-search-bar [title]="'Buscar Suscriptor..'" [options]="selectSubscriptorOptions"
+                        (selectionChanged)="onSubscriptorSelectedChange($event)"></app-my-search-bar>
+                </ng-container>
+
+
+                <!-- Plan Subsripcion -->
+                <app-my-input [label]="'Plan Suscripcion'" [icon]="'credit_card'" [type]="'text'" [required]="true"
+                    [control]="$any(form.get('planSubscription'))" [disabled]="true" [readonly]="true"></app-my-input>
+
+                <!-- Monto -->
+                <app-my-input [label]="'Monto'" [icon]="'credit_card'" [type]="'number'" [required]="true"
+                    [control]="$any(form.get('monto'))" [disabled]="true" [readonly]="true"></app-my-input>
+
+                <!-- Metodo Pago -->
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Metodo Pago</mat-label>
+                    <mat-select formControlName="metodoPago" (selectionChange)="onSelectChangePaymentMethod($event)">
+                        <mat-option *ngFor="let option of selectPaymentMethodOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- Bank -->
+                <ng-container *ngIf="isTransferPaymentMethod">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Banco</mat-label>
+                        <mat-select formControlName="bank">
+                            <mat-option *ngFor="let option of selectBanksOptions" [value]="option.value">
+                                {{ option.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="isMercadoPagoPaymentMethod">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Mercado Pago</mat-label>
+                        <mat-select formControlName="bank">
+                            <mat-option *ngFor="let option of selectMercadoPagoOptions" [value]="option.value">
+                                {{ option.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <!-- Numero transaccion -->
+                <ng-container *ngIf="isTransferPaymentMethod">
+                    <app-my-input [label]="'Numero de transaccion'" [icon]="'credit_card'" [type]="'text'"
+                        [required]="true" [control]="$any(form.get('numeroTransaccion'))"></app-my-input>
+                </ng-container>
+
+
+                <!-- <app-my-input [label]="'Metodo de Pago'" [icon]="'credit_card'" [type]="'select'" [required]="true"
+                    [control]="$any(form.get('metodoPago'))" [selectOptions]="selectPaymentMethodOptions"
+                    ></app-my-input> -->
+
+            </ng-container>
+
+        </div>
+        <div class="flex mx-auto justify-evenly my-3">
+            <button type="submit"
+                class="bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-xl text-white hover:cursor-pointer {{!form.valid ? 'opacity-50 cursor-not-allowed' : ''}}"
+                (click)="onSubmit()" [disabled]="!form.valid">Guardar</button>
+
+            <!-- <button type="button" (click)="onClose()">Cancelar</button> -->
+            <app-my-cancel-button></app-my-cancel-button>
+        </div>
+        <div class="flex mx-auto text-center my-2">
+            <button type="button" (click)="onDefaultData()">Cargar Data Defecto</button>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- ! checkbox -->
+<!-- <app-my-input label="Acepta Las Politicas?" placeholder="" type="checkbox" [icon]="'checkbox'"
+    [required]="true" [control]="$any(form.get('politics'))" [selectOptions]="selectOptions">
+</app-my-input>  -->

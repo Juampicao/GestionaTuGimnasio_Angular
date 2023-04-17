@@ -1,0 +1,96 @@
+<div class="mt-2">
+    <app-my-header [size]="2" [title]="'Ver Informacion personal del subscriptor'"></app-my-header>
+
+    <ng-container *ngIf="isLoading">
+        <app-my-spiner></app-my-spiner>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading">
+
+        <mat-card>
+            <div [ngStyle]="{'background-image': 'url(' + (person.profileImage || 'default-image-url.jpg') + ')'}"
+                class="person-image">
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <img *ngIf="person.profileImage" src="{{person.profileImage}}" alt="imagen sussriptor"
+                        class="max-w-[150px] rounded-xl">
+                    <p>No tiene imagen</p>
+                </div>
+                <div class="flex items-center"><mat-icon>person</mat-icon><strong class="mr-2">Nombre:</strong> {{
+                    person.name }}</div>
+                <div class="flex items-center"><mat-icon>cake</mat-icon><strong class="mr-2">Edad:</strong> {{
+                    person.age }}
+                </div>
+                <div class="flex items-center"><mat-icon>location_on</mat-icon><strong class="mr-2">Dirección:</strong>
+                    {{
+                    person.address
+                    }}</div>
+                <div class="flex items-center"><mat-icon>phone</mat-icon><strong class="mr-2">Teléfono:</strong> {{
+                    person.phoneNumber }}
+                </div>
+                <div class="flex items-center"><mat-icon>event</mat-icon><strong class="mr-2">Fecha de
+                        nacimiento:</strong>
+                    {{
+                    person.birthday }}</div>
+                <div class="flex items-center"><mat-icon>category</mat-icon><strong class="mr-2">Categoría:</strong> {{
+                    person.category
+                    }}</div>
+                <div class="flex items-center"><mat-icon>assignment</mat-icon><strong class="mr-2">Número de
+                        registro:</strong> {{
+                    person.registerNumber }}</div>
+            </div>
+
+            <div class="space-y-3 my-3">
+
+                <ng-container *ngIf="person.isFreezed">
+                    <p class="p-5 w-full text-center text-white bg-green-500 font-bold rounded-xl">
+                        <!-- Congelado hasta
+                        {{person.getDateFinishFreezed()}}
+                     -->
+                        Full congelado
+                        <button class="bg-blue-700 px-5 py-3" (click)="onFreezeSubscriptor()">
+                            Descongelar
+                        </button>
+                    </p>
+                </ng-container>
+                <div class="flex items-center"><mat-icon>assignment</mat-icon><strong class="mr-2">
+                        Informacion sobre Congelamiento:</strong>
+                    {{person.getFreezedData()}}
+                </div>
+
+                <div class="flex items-center">
+                    <strong class="mr-2">
+                        Condicion </strong>
+                    <mat-icon>{{person.getConditionIcon()}}</mat-icon>
+                    {{person.getCondition()}}
+                </div>
+
+                <div class="flex items-center">
+                    <mat-icon>event</mat-icon>
+                    <strong class="mr-2">
+                        Dias para vencer: </strong>
+                    {{person.getNumberDaysToExpired()}}
+                </div>
+            </div>
+
+            <!-- <div class="flex items-center">
+                <p class="mr-3">Enviar Mensaje de whatsapp</p>
+                <app-my-whatsapp-button [phoneNumber]="1157409237"
+                    [message]="'Hola gonza, estamos probando'"></app-my-whatsapp-button>
+            </div> -->
+
+            <!-- <label for="my-whatsapp-button" class="flex items-center cursor-pointer">
+                <p class="mr-3">Enviar Mensaje de whatsapp</p>
+                <app-my-whatsapp-button id="my-whatsapp-button" [phoneNumber]="1157409237"
+                    [message]="'Hola gonza, estamos probando'"></app-my-whatsapp-button>
+            </label> -->
+
+            <app-my-whatsapp-button id="my-whatsapp-button" [phoneNumber]="person.phoneNumber"
+                [message]="'Hola gonza, estamos probando'" label="Enviar Whatsapp"></app-my-whatsapp-button>
+
+        </mat-card>
+    </ng-container>
+
+</div>

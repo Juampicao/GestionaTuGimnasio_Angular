@@ -1,0 +1,120 @@
+<div class=" flex">
+    <form [formGroup]="form" action="submit" (ngSubmit)="onSubmit()" class="p-10 bg-white border rounded-xl">
+        <p class="text-center mb-3 uppercase font-semibold text-xl"> {{subscriptorEdit? "Editar Suscriptor" : "Crear
+            Suscriptor"}}
+        </p>
+        <div class=" overflow-y-auto max-h-96  gap-x-2">
+
+            <!-- <div class=" overflow-y-auto max-h-96 grid grid-cols-2 gap-x-2"> -->
+
+            <ng-container *ngIf="isLoading">
+                <app-my-spiner></app-my-spiner>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoading">
+                <!--! Accordeon -->
+
+                <mat-accordion class="example-headers-align ">
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Informacion Personal
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Completa la informacion
+                                <mat-icon>account_circle</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="md:grid md:grid-cols-2 md:gap-x-2">
+
+                            <!-- <app-my-input [type]="'file'" [label]="'Imagen de perfil'" [required]="true"
+                            [control]="$any(form.get('profileImage'))"></app-my-input> -->
+
+
+                            <app-my-input [label]="'Nombre'" [icon]="'person'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('name'))"></app-my-input>
+
+                            <app-my-input [label]="'Apellido'" [icon]="'person'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('surname'))"></app-my-input>
+
+                            <app-my-input [label]="'DNI'" [icon]="'credit_card'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('dni'))"></app-my-input>
+
+                            <app-my-input [label]="'Teléfono'" [icon]="'phone'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('phoneNumber'))"></app-my-input>
+
+                            <app-my-input [label]="'Categoría'" [icon]="'category'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('category'))"></app-my-input>
+
+                            <app-my-input [label]="'Nacimiento'" [icon]="'event'" [type]="'date'" [required]="true"
+                                [control]="$any(form.get('birthday'))"></app-my-input>
+
+                            <app-my-input [label]="'Dirección'" [icon]="'location_on'" [type]="'text'" [required]="true"
+                                [control]="$any(form.get('address'))"></app-my-input>
+
+                            <app-my-input [label]="'Correo electrónico'" [icon]="'email'" [type]="'email'"
+                                [required]="true" [control]="$any(form.get('email'))"></app-my-input>
+                        </div>
+
+
+
+                        <mat-action-row>
+                            <button mat-button color="primary" type="button" (click)="nextStep()">Siguiente</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Plan Suscripcion
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Plan adherido
+                                <mat-icon>map</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!-- Plan Subscription -->
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Planes Disponibles</mat-label>
+                            <mat-select formControlName="planSubscription"
+                                (selectionChange)="onSelectPlanSubscription($event)"
+                                [disabled]="subscriptorEdit?.id ? true : false">
+                                <mat-option *ngFor="let option of planSubscriptionsList" [value]="option">
+                                    {{ option.nombre }}
+                                </mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- Mensaje alerta -->
+                        <p *ngIf="subscriptorEdit?.id ? true : false"
+                            class="text-center bg-red-300 border-red-500 rounded-xl py-2">
+                            No
+                            puedes editar el plan por el momento</p>
+                        <!-- Mensaje alerta -->
+
+                        <mat-action-row>
+                            <button mat-button color="warn" type="button" (click)="prevStep()">Anterior</button>
+                            <button mat-button color="primary" type="button" (click)="nextStep()">Siguiente</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+            </ng-container>
+
+        </div>
+        <div class="flex mx-auto justify-evenly my-3">
+
+            <button type="submit"
+                class="bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-xl text-white hover:cursor-pointer {{!form.valid ? 'opacity-50 cursor-not-allowed' : ''}}"
+                (click)="onSubmit()" [disabled]="!form.valid">{{subscriptorEdit? "Editar" : "Crear"}}</button>
+            <button type="button" (click)="onClose()">Cancelar</button>
+
+        </div>
+        <div class="flex mx-auto text-center my-2">
+            <button type="button" (click)="onDefaultData()">Cargar Data Defecto</button>
+        </div>
+    </form>
+</div>

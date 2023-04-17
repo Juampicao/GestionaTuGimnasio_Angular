@@ -1,0 +1,11 @@
+// 1) Agregar un Subject.
+// 2) Agregarlo en el ngOnInit de cada componente que quiero que escuche.
+// 3) En cada llamado del serivico, que quiero que se escuchen los cambios:
+// Retornar observable.
+return of(newSubscriptor).pipe(
+tap(() => {
+this.refreshData$.next();
+})
+);
+// 4) En cada llamado, ejemplo form-freeze-data, 
+this._subscriptorManagerService.refreshData$.next(); //! Deberia ir esto?

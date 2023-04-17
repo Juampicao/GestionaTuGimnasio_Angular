@@ -1,0 +1,13 @@
+<app-my-header title="Lista de estados" [size]="2" [isBackButton]="false"></app-my-header>
+<ng-container *ngIf="isLoading">
+    <app-my-spiner></app-my-spiner>
+</ng-container>
+
+
+<ng-container *ngIf="!isLoading">
+    <div class="m-5 lg:w-4/5 overflow-x-auto  lg:overflow-x-hidden">
+        <app-my-reutilizable-table HeadBackgroundColor="bg-black" [indexNumber]="false"
+            [HeadArray]="headArrayStatusList" [GridArray]="getStatusManagerList()" (onView)="onViewStatus($event)"
+            (onEdit)="onEditStatus($event)" (onDelete)="onDeleteStatus($event)"></app-my-reutilizable-table>
+    </div>
+</ng-container>

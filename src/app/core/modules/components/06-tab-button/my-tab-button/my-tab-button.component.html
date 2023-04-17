@@ -1,0 +1,21 @@
+<mat-tab-group>
+    <mat-tab *ngFor="let item of tabList">
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon ">{{item.icon}}</mat-icon>
+            <span class="pl-1">{{ item.title }}</span>
+        </ng-template>
+        <ng-container *ngComponentOutlet="item.explanation"></ng-container>
+    </mat-tab>
+</mat-tab-group>
+
+<!-- ! Opcion 2 -->
+<!-- ! Agregar active: true or false a la lista -->
+<!-- <mat-tab *ngFor="let item of tabList">
+    <ng-template mat-tab-label (click)="item.active = true">
+        <mat-icon class="example-tab-icon">{{item.icon}}</mat-icon>
+        <span class="pl-1">{{ item.title }}</span>
+    </ng-template>
+    <ng-container *ngIf="item.active">
+        <ng-container *ngComponentOutlet="item.explanation"></ng-container>
+    </ng-container>
+</mat-tab> -->

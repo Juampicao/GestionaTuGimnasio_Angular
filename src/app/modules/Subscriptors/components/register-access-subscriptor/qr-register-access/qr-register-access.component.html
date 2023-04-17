@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col">
+        <div style="width:500px;" id="reader"></div>
+    </div>
+    <div class="col" style="padding:30px;">
+        <h4>SCAN RESULT</h4>
+        <div id="result">Result Here</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onScanSuccess(qrCodeMessage) {
+        console.log(qrCodeMessage)
+
+        console.log(qrCodeMessage.estado ? qrCodeMessage.estado : "No hay estado")
+        if (qrCodeMessage.estado === "deuda1") {
+            document.getElementById('result').innerHTML = '<span class="resultRed">' + 'Resultado:' + qrCodeMessage + '</span>';
+        }
+        else if (qrCodeMessage.estado === "activo") {
+            document.getElementById('result').innerHTML = '<span class="resultGreen">' + 'Resultado:' + qrCodeMessage + '</span>';
+        }
+        else {
+            document.getElementById('result').innerHTML = '<span class="resultBlue">' + 'Resultado:' + qrCodeMessage + '</span>';
+        }
+    }
+
+    function onScanError(errorMessage) {
+        //handle scan error
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+</script>

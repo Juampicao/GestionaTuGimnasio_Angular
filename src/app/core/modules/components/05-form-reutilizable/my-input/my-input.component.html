@@ -1,0 +1,214 @@
+<div>
+
+    <!-- ! Area -->
+    <ng-container *ngIf="type === 'notes'">
+        <div class="flex flex-col">
+            <label class="my-input-label flex items-center gap-x-2">
+                <mat-icon matSuffix>{{ icon }}</mat-icon>
+                {{ label }}
+            </label>
+            <textarea class="border rounded-xl min-h-10 p-2 active:border-red-500" [placeholder]="placeholder"
+                [formControl]=" control" [required]="required" [readonly]="readonly"
+                [ngClass]="readonly ? 'opacity-50': ''"></textarea>
+        </div>
+    </ng-container>
+
+    <!-- ! Text -->
+    <ng-container *ngIf="type === 'text'">
+        <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="fill"> Sin recuadro -->
+            <mat-label>{{label}}</mat-label>
+            <input matInput [type]="type" [placeholder]="placeholder" [formControl]="control" [required]="required"
+                [disabled]="disabled" [readonly]="readonly" class="border rounded-full"
+                [ngClass]="readonly ? 'opacity-50': ''">
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! Contraseña  -->
+    <ng-container *ngIf="type === 'password'">
+        <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="fill"> Sin recuadro -->
+            <mat-label>{{label}}</mat-label>
+            <input matInput [type]="type" [placeholder]="placeholder" [formControl]="control" [required]="required"
+                [disabled]="disabled" [readonly]="readonly" class="border rounded-full"
+                [ngClass]="readonly ? 'opacity-50': ''">
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! Number -->
+    <ng-container *ngIf="type === 'number'">
+        <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="fill"> Sin recuadro -->
+            <mat-label>{{label}}</mat-label>
+            <input matInput [min]=0 [max]="maxNumber" [type]="type" [placeholder]="placeholder" [formControl]="control"
+                [required]="required" [disabled]="disabled" [readonly]="readonly" class="border rounded-full"
+                [ngClass]="readonly ? 'opacity-50': ''">
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+            <mat-error *ngIf="control.hasError('invalidMinNumber')">
+                {{ 'El Numero no puede ser negativo.' }}
+            </mat-error>
+            <mat-error *ngIf="control.hasError('invalidMaxNumber')">
+                {{ 'El Numero no es válido.' }}
+            </mat-error>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! Select -->
+    <ng-container *ngIf="type === 'select'">
+        <mat-form-field appearance="outline">
+            <mat-label>{{label}}</mat-label>
+            <mat-select [formControl]="control" [disabled]="disabled" [ngClass]=" readonly
+                ? 'opacity-50' : ''" (selectionChange)=" onSelectionChange($event)">
+                <mat-option [value]=""> --Select--</mat-option>
+                <mat-option *ngFor="let option of selectOptions" [value]="option.value">{{ option.label }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+        </mat-form-field>
+    </ng-container>
+
+    <!--! Viejo Select -->
+    <!-- <ng-container *ngIf="type === 'select'">
+        <mat-form-field appearance="outline">
+            <mat-label>{{label}}</mat-label>
+            <mat-select [(ngModel)]="ngModel" [formControl]="control" [ngClass]="readonly ? 'opacity-50': ''"
+               (ngModelChange)="onNgModelChange($event)">
+                <mat-option [value]=""> --Select--</mat-option>
+                <mat-option *ngFor="let option of selectOptions" [value]="option.value">{{ option.label }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+        </mat-form-field>
+    </ng-container> -->
+
+    <!-- ! Date -->
+    <ng-container *ngIf="type === 'date'">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ label }}</mat-label>
+            <input [min]="minDate" [max]="maxDate" matInput [formControl]="control" [required]="required"
+                [readonly]="readonly" [type]="'date'" class="border rounded-full"
+                [ngClass]="readonly ? 'opacity-50': ''">
+            <!-- min="1920-01-01" max="2050-12-12" -->
+            <!-- <mat-icon matSuffix>{{ icon }}</mat-icon> -->
+            <mat-icon matSuffix>date </mat-icon>
+
+            <mat-error *ngIf="control.hasError('dateInvalidMax')">
+                {{ 'La fecha no puede ser mayor a hoy' }}
+            </mat-error>
+
+            <mat-error *ngIf="control.hasError('dateInvalidMin')">
+                {{ 'La fecha no puede ser menor a hoy' }}
+            </mat-error>
+
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! Mail -->
+    <ng-container *ngIf="type === 'email'">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ label }}</mat-label>
+            <input matInput [type]="type" [placeholder]="placeholder" [formControl]="control" [required]="required"
+                [readonly]="readonly" [email]="true" class="border rounded-full"
+                [ngClass]="readonly ? 'opacity-50': ''">
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            <mat-error *ngIf="control.hasError('email')">
+                El correo electrónico no es válido
+                ejemplo@gmail.com
+            </mat-error>
+
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! File -->
+    <ng-container *ngIf="type === 'file'">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ label }}</mat-label>
+            <input type="file" (change)="onFileSelect($event)" class="hidden" #fileInput [formControl]="control">
+            <button mat-raised-button color="primary" (click)="fileInput.click()">
+                Subir
+            </button>
+            <span>{{ fileName }}</span>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- ! Checkbox -->
+    <ng-container *ngIf="type === 'checkbox'" class="flex items-center mx-auto">
+        <mat-checkbox [required]="required" [formControl]="control" [ngClass]="readonly ? 'opacity-50': ''">
+            {{ label }}
+        </mat-checkbox>
+        <mat-icon matSuffix>{{ icon }}</mat-icon>
+        <mat-checkbox [required]="required" [formControl]="control" [ngClass]="readonly ? 'opacity-50': ''">
+            {{ label }}
+        </mat-checkbox>
+        <mat-icon matSuffix>{{ icon }}</mat-icon>
+    </ng-container>
+
+
+    <!-- ! Toogle -->
+    <!-- [readonly]="readonly" -->
+    <ng-container *ngIf="type === 'toggle'">
+        <div class="flex items-center mx-auto pl-2">
+            <mat-slide-toggle [disabled]="disabled" [formControl]="control" [required]="required" [checked]="checked">
+                {{ label }}
+            </mat-slide-toggle>
+            <mat-icon matSuffix>{{ icon }}</mat-icon>
+        </div>
+    </ng-container>
+
+    <!-- ! Radio -->
+    <ng-container *ngIf="type === 'radio'">
+        <div class="flex flex-col " appearance="outline">
+            <label>{{label}}</label>
+            <mat-radio-group [formControl]="control" [(ngModel)]="ngModel" name="options" class="flex justify-evenly"
+                [disabled]="disabled" [ngClass]="readonly ? 'opacity-50': ''">
+                <mat-radio-button *ngFor="let option of radioOptions" [value]="option.value">
+                    {{ option.label }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </ng-container>
+
+    <!-- Prueba Checkbox -->
+    <!-- <ng-container *ngIf="type === 'checkbox'">
+        <mat-checkbox [formControl]="control" class="border rounded-full" labelPosition="after">
+            {{ label }}
+            <mat-icon>{{ icon }}</mat-icon>
+        </mat-checkbox>
+    </ng-container> -->
+
+    <!-- ! Validations -->
+    <ng-container>
+        <!-- <div class="w-full bg-red-500 rounded-md text-white text-center"
+            *ngIf="control.touched && control.errors?.['required']">
+            Este campo es obligatorio
+        </div> -->
+        <!-- <div *ngIf="control.touched && control.errors?.['minlength']"
+    class="w-full bg-red-500 rounded-md text-white text-center">
+    Tiene {{control.errors?.['minlength'].actualLength}} caracteres pero necesita
+    {{control.errors?.['minlength'].requiredLength}}
+            </div> -->
+        <mat-error *ngIf="control.touched && control.errors?.['required']">
+            Este campo es obligatorio
+        </mat-error>
+
+        <mat-error *ngIf="control.touched && control.errors?.['minlength']">
+            Tiene {{control.errors?.['minlength'].actualLength}} caracteres pero necesita
+            {{control.errors?.['minlength'].requiredLength}}
+        </mat-error>
+
+
+        <!-- <div *ngIf="control.invalid && (formControl.dirty || formControl.touched)">
+            <small *ngIf="control.errors.required">Campo requerido</small>
+            <small *ngIf="control.errors.minlength">El valor mínimo es {{
+                formControl.errors.minlength.requiredLength
+                }}</small>
+            <small *ngIf="formControl.errors.maxlength">El valor máximo es {{
+                formControl.errors.maxlength.requiredLength
+                }}</small>
+            <small *ngIf="formControl.errors.pattern">El valor no es válido</small>
+            <small *ngIf="formControl.errors.fileSize">La imagen es demasiado grande</small>
+            <small *ngIf="formControl.errors.email">El correo electrónico no es válido</small>
+            <small *ngIf="formControl.errors.dateValidator">La fecha no es válida</small>
+        </div> -->
+    </ng-container>
+</div>

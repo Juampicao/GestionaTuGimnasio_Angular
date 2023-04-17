@@ -1,0 +1,17 @@
+<mat-form-field class="example-chip-list" style="padding: 10rem;">
+    <mat-label>Tags</mat-label>
+    <mat-chip-list #chipList formControlName="tags" (chipRemoved)="removeTag($event)">
+        <mat-chip *ngFor="let option of tagsList " [value]="option">
+            {{option}}
+            <mat-icon matChipRemove (click)="remove(option)">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Add tag" #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of tagsList " [value]="tag">
+                {{tag}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-chip-list>
+</mat-form-field>

@@ -1,0 +1,21 @@
+ .resultGreen {
+        background-color: green;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .resultBlue {
+        background-color: blue;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .resultRed {
+        background-color: red;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .row {
+        display: flex;
+    }

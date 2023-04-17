@@ -1,0 +1,24 @@
+<div class="sidenav rounded-r-xl" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+    <div class="logo-container mt-5 mb-5 ">
+        <button class="logo" (click)="toggleCollapse()">{{gimName.charAt(0)}}</button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">{{gimName}}</div>
+        <button class="btn-close rounded-xl" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+            <!-- <i class="fal fa-times close-icon"></i> -->
+            <mat-icon class="sidenav-link-icon bg-white rounded-xl">close</mat-icon>
+
+        </button>
+
+    </div>
+    <ul class="sidenav-nav space-y-3">
+        <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <!-- <i class="sidenav-link-icon" [class]="data.icon"></i> -->
+                <mat-icon class="sidenav-link-icon">{{data.icon}}</mat-icon>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    {{data.label}}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>

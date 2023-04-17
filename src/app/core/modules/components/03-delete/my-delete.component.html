@@ -1,0 +1,11 @@
+<h2>Eliminar</h2>
+<h3> Estas seguro de eliminar {{message}}?</h3>
+
+<div class="flex justify-around">
+    <button class="flex items-center text-white bg-red-500 rounded-xl px-4 py-2.5 hover:bg-red-700"
+        [mat-dialog-close]="true">Eliminar
+        <mat-icon class="ml-1">delete</mat-icon> </button>
+    <button class="flex items-center  text-white bg-black rounded-xl px-4 py-2.5 hover:bg-slate-800"
+        [mat-dialog-close]="false">Cancelar<mat-icon class="ml-1">cancel</mat-icon>
+    </button>
+</div>

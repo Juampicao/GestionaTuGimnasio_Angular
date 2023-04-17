@@ -1,0 +1,52 @@
+<app-my-header [size]="2" title="Tareas" [isBackButton]="false"></app-my-header>
+
+<div class="flex mx-auto items-center w-1/3 gap-x-1  ">
+    <!-- <span>+</span> -->
+    <input type="text" class="py-2 px-3 rounded-xl cursor-pointer mx-auto" placeholder="+ Nueva tarea.."
+        [(ngModel)]="newTask">
+    <app-my-button [class]="'flex items-center bg-black text-white px-3 py-1.5 rounded-xl'" [icon]="'add'"
+        (click)="onAddTask()">Agregar</app-my-button>
+</div>
+
+<div cdkDropListGroup class="grid grid-cols-3 grid-x-3 bg-slate-100  p-3">
+    <div class="example-container">
+        <h2 class="text-center mb-2">Pendientes</h2>
+
+        <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of todo; let i = index" cdkDrag>
+                <p>{{i + 1}}</p>
+                {{item}}
+                <app-my-button class="bg-red-500 rounded-xl flex items-center px-0.5 py-0.5" [icon]="'delete'"
+                    (click)="deleteTaskTodo(i)">delete</app-my-button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="example-container">
+        <h2 class="text-center mb-2">En Proceso</h2>
+        <div cdkDropList [cdkDropListData]="process" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of process; let i = index" cdkDrag>
+                <p>{{i + 1}}</p>
+                {{ item }}
+                <app-my-button class="bg-red-500 rounded-xl flex items-center px-0.5 py-0.5" [icon]="'delete'"
+                    (click)="deleteTaskProcess(i)">delete</app-my-button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="example-container">
+        <h2 class="text-center mb-2">Terminadas</h2>
+
+        <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
+                <p>{{i + 1}}</p>
+                {{item}}
+                <app-my-button class="bg-red-500 rounded-xl flex items-center px-0.5 py-0.5" [icon]="'delete'"
+                    (click)="deleteTaskDone(i)">delete</app-my-button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+<app-my-header [title]="'Ver Pagos del subscriptor'"></app-my-header>
+
+<!-- <ng-container *ngIf="isLoading">
+    cargando..
+</ng-container> -->
+
+<!-- <ng-container *ngIf="!isLoading">
+
+    <div class="m-2 flex flex-col space-y-3">
+        <h2 class="text-center font-bold text-xl">Ver Pago </h2> -->
+<!-- <p>
+        {{message}}
+    </p> -->
+
+
+<!-- <p>
+            <span>Metodo Pago Completo:</span> {{paymentVisual.getMetodoPagoCompleteJson()}}
+        </p>
+
+        <p>
+            <span>Pagador:</span> {{paymentVisual.pagadorNombre}}
+        </p>
+
+        <p>
+            <span>Aclaracion:</span> {{paymentVisual.tipoPago}}
+        </p>
+
+        <p>
+            <span>Monto:</span> {{paymentVisual.monto}}
+        </p>
+
+        <p>
+            <span>Plan:</span> {{paymentVisual.planSuscripcionName}}
+        </p>
+
+        <p>
+            <span>Estado:</span> {{paymentVisual.estado}}
+        </p>
+
+        <p>
+            <span>FechaPago:</span> {{paymentVisual.fechaPagoParsed}}
+        </p> -->
+<!-- </div>
+</ng-container> 
+-->
+
+<ng-container *ngIf="isLoading">
+    <app-my-spiner></app-my-spiner>
+</ng-container>
+
+<ng-container *ngIf="!isLoading">
+    <div class="m-5 lg:w-4/5 overflow-x-auto  lg:overflow-x-hidden">
+        <app-my-reutilizable-table HeadBackgroundColor="bg-black" [indexNumber]="false" [HeadArray]="headArrayPayments"
+            [GridArray]="paymentsList" (onView)="onViewPayment($event)"></app-my-reutilizable-table>
+    </div>
+</ng-container>

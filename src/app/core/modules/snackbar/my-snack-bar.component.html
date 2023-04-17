@@ -1,0 +1,54 @@
+<!-- !  Nuevo -->
+<!-- <div>
+    <div class="snack-content">
+        <div class="snack-line"></div>
+        <div class="snack-message">{{ data.message }}</div>
+    </div>
+</div> -->
+
+<!-- !  Nuevo Dinamico -->
+
+<div>
+    <div class="snack-content">
+        <div [class.snack-line--success]="type === 'success'" [class.snack-line--error]="type === 'error'"
+            [class.snack-line--notfunction]="type === 'notfunction'" [class.snack-line--info]="type === 'info'"
+            class="snack-line"></div>
+        <div class="snack-message">{{ data.message }}</div>
+    </div>
+</div>
+
+<!-- !  Con Icono -->
+<!-- <div>
+    <div class="snack-content">
+        <div class="snack-line"></div>
+        <div class="snack-message">{{ data }}</div>
+    </div>
+    <button mat-button class="snack-button" (click)="dismiss()">
+        <mat-icon>close</mat-icon>
+        Close
+    </button>
+</div> -->
+
+<!--?  Posiciones posibles para mostrar el snackBar -->
+<!-- <mat-form-field appearance="fill">
+    <mat-label>Horizontal position</mat-label>
+    <mat-select [(value)]="horizontalPosition">
+        <mat-option value="start">Start</mat-option>
+        <mat-option value="center">Center</mat-option>
+        <mat-option value="end">End</mat-option>
+        <mat-option value="left">Left</mat-option>
+        <mat-option value="right">Right</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Vertical position</mat-label>
+    <mat-select [(value)]="verticalPosition">
+        <mat-option value="top">Top</mat-option>
+        <mat-option value="bottom">Bottom</mat-option>
+    </mat-select>
+</mat-form-field> -->
+
+
+<!-- <button mat-stroked-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
+    Pool party!
+</button> -->

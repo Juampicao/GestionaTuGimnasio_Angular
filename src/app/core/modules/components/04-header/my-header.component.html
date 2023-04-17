@@ -1,0 +1,8 @@
+<div class="flex items-center gap-x-2">
+    <ng-container *ngIf="isBackButton">
+        <app-my-back-button></app-my-back-button>
+    </ng-container>
+    <h2 [ngClass]="{'text-3xl font-bold': size == 1, 'text-2xl font-bold': size == 2, 'text-md font-bold': size == 3}">
+        {{title}}
+    </h2>
+</div>

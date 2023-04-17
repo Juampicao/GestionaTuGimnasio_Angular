@@ -1,0 +1,23 @@
+<!-- <button [matMenuTriggerFor]="menu"
+    class="bg-slate-800 hover:bg-slate-900 px-5 py-2.5 rounded-full text-white hover:scale-105 hover:duration-200 duration-200 text-xl">+</button>
+<mat-menu #menu="matMenu">
+    <ng-container *ngFor="let item of optionsButtons">
+        <button (click)="item.function" mat-menu-item>{{item.label}}</button>
+    </ng-container>
+</mat-menu> -->
+
+<!-- ! Version no dinamica -->
+<!-- <button [matMenuTriggerFor]="menu"
+    class="bg-slate-800 hover:bg-slate-900 px-5 py-2.5 rounded-full text-white hover:scale-105 hover:duration-200 duration-200 text-xl">+</button>
+<mat-menu #menu="matMenu">
+     <button mat-menu-item class="hover:bg-blue-500">Registrar Pago </button>
+    <button mat-menu-item>Nuevo Suscriptor </button> 
+
+</mat-menu> -->
+
+<!-- ! Nueva dinamica -->
+<button [matMenuTriggerFor]="menu"
+    class="bg-slate-800 hover:bg-slate-900 px-5 py-2.5 rounded-full text-white hover:scale-105 hover:duration-200 duration-200 text-xl">+</button>
+<mat-menu #menu="matMenu">
+    <button *ngFor="let item of optionsButtons" (click)="onClick(item.function)" mat-menu-item>{{item.label}}</button>
+</mat-menu>

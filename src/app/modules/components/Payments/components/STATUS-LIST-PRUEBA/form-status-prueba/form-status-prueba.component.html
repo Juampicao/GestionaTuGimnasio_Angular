@@ -1,0 +1,47 @@
+<div class="flex">
+    <form [formGroup]="form" action="submit" (ngSubmit)="onSubmit()" class="mx-auto p-10 bg-white border rounded-xl">
+        <p class="text-center mb-3 uppercase font-semibold text-xl"> Editar Estado </p>
+        <div>
+
+            <ng-container *ngIf="isLoading">
+                <app-my-spiner></app-my-spiner>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoading">
+
+                <!-- Status -->
+                <app-my-input [label]="'Estado'" [icon]="'message'" [type]="'text'" [required]="true" [disabled]="true"
+                    [readonly]="true" [control]="$any(form.get('status'))"></app-my-input>
+
+                <!-- Condicion -->
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Condicion</mat-label>
+                    <mat-select formControlName="condition">
+                        <mat-option *ngFor="let option of conditionOptions" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <!-- Mensaje -->
+                <app-my-input [label]="'Mensaje visual'" [icon]="'message'" [type]="'text'" [required]="true"
+                    [control]="$any(form.get('message'))"></app-my-input>
+
+
+            </ng-container>
+
+        </div>
+        <div class="flex mx-auto justify-evenly my-3">
+            <button type="submit"
+                class="bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-xl text-white hover:cursor-pointer {{!form.valid ? 'opacity-50 cursor-not-allowed' : ''}}"
+                (click)="onSubmit()" [disabled]="!form.valid">Guardar</button>
+
+            <!-- <button type="button" (click)="onClose()">Cancelar</button> -->
+            <app-my-cancel-button></app-my-cancel-button>
+        </div>
+        <div class="flex mx-auto text-center my-2">
+            <button type="button" (click)="onDefaultData()">Cargar Data Defecto</button>
+        </div>
+    </form>
+</div>

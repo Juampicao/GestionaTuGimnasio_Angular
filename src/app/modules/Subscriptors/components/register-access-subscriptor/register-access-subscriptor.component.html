@@ -1,0 +1,83 @@
+<div class="m-5 p-5 bg-white rounded-lg shadow-md  relative">
+    <div class="">
+        <h2 class="text-center text-2xl font-bold mb-5">Register Access</h2>
+        <p class="text-lg mb-2"><strong>Nombre:</strong> {{suscriptor.name}}</p>
+        <div [ngClass]="statusColor()" class="p-5 flex flex-col mb-5 text-center rounded-xl">
+            <p class=" text-lg mb-2">
+                <!-- Condicion: -->
+                <strong> {{suscriptor.condition}}</strong>
+                Status:
+                <strong> {{suscriptor.status}} </strong>
+            </p>
+            <p class="text-lg">{{statusMessage()}}</p>
+        </div>
+        <div class="flex justify-between text-lg">
+            <div class="text-center">
+                <p><strong>Fecha Vencimiento</strong></p>
+                <p>{{statusDate()}}</p>
+            </div>
+            <div class="text-center">
+                <p><strong>Aclaracion</strong></p>
+                <p>{{daysToExpired()}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white flex justify-evenly sm:gap-x-3 sm:flex-row mt-5 mb-3">
+        <ng-container *ngIf="getCondition() === 'Habilitado'">
+            <button (click)="onRegisterAccess()"
+                class="bg-green-500 hover:green-800  hover:scale-105 duration-200  transition-200 px-5 py-2.5 border rounded-xl text-white font-bold">
+                Registrar
+                Acceso </button>
+        </ng-container>
+
+        <button (click)="onViewInformation()"
+            class="bg-black hover:blackscale-105 hover:scale-105 duration-200 px-5 py-2.5 border rounded-xl text-white font-bold">
+            Ver Informacion </button>
+
+        <div class="absolute top-0 right-0 transform translate-x-2/4 -translate-y-2/4 cursor-pointer">
+            <button (click)="onClose()" class="px-5 py-2.5">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ! Viejo -->
+
+<!-- <div class="m-5 p-5 bg-white rounded-lg shadow-md  relative">
+    <div class="">
+        <h2 class="text-center text-2xl font-bold mb-5">Register Access</h2>
+        <p class="text-lg mb-2"><strong>Nombre:</strong> {{suscriptor.name}}</p>
+        <div [ngClass]="statusColor()" class="p-5 flex flex-col mb-5 text-center rounded-xl">
+            <p class=" text-lg mb-2">Status: <strong> {{suscriptor.status}} </strong></p>
+            <p class="text-lg">{{statusMessage()}}</p>
+        </div>
+        <div class="flex justify-between text-lg">
+            <div class="text-center">
+                <p><strong>Fecha Vencimiento</strong></p>
+                <p>{{statusDate()}}</p>
+            </div>
+            <div class="text-center">
+                <p><strong>Aclaracion</strong></p>
+                <p>{{daysToExpired()}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white flex justify-evenly sm:gap-x-3 sm:flex-row mt-5 mb-3">
+        <ng-container *ngIf="statusFinal() === 'completado'">
+            <button (click)="onRegisterAccess()"
+                class="bg-green-500 hover:green-800  hover:scale-105 duration-200  transition-200 px-5 py-2.5 border rounded-xl text-white font-bold">
+                Registrar
+                Acceso </button>
+        </ng-container>
+
+        <button (click)="onViewInformation()"
+            class="bg-black hover:blackscale-105 hover:scale-105 duration-200 px-5 py-2.5 border rounded-xl text-white font-bold">
+            Ver Informacion </button>
+        <div class="absolute top-0 right-0 transform translate-x-2/4 -translate-y-2/4 cursor-pointer">
+            <button (click)="onClose()" class="px-5 py-2.5">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</div> -->

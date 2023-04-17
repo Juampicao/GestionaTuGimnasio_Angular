@@ -1,0 +1,10 @@
+<app-my-header [title]="'Pagos'"></app-my-header>
+
+<div class="my-5">
+    <a class="bg-blue-600 hover:bg-blue-700 hover:scale-110 rounded-xl text-white duration-200  px-5 py-3 pointer"
+        [routerLink]="'/pagos/formulario-pago-suscripcion'" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="text-xl"> +</span> Crear Nuevo Pago
+    </a>
+</div>
+<app-payment-list></app-payment-list>

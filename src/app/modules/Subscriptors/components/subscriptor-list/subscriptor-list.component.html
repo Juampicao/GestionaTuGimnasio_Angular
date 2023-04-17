@@ -1,0 +1,39 @@
+<!-- Todo crear un container general para las tablas y formularios -->
+<div class="m-5 lg:w-4/5 overflow-x-auto sm:overflow-hidden">
+    <ng-container *ngIf="searchOptions.length" class="mt-5 bg-white">
+        <app-my-search-bar [title]="'Registrar Accesos'" [options]="searchOptions"
+            (selectionChanged)="onOptionSelected($event)"></app-my-search-bar>
+    </ng-container>
+
+    <!-- <app-my-table-paginator [indexNumber]="false" [HeadArray]="headArray" [GridArray]="subscriptorList"
+                [Title]="'Lista Suscriptores'" (onEdit)="onEditSubscriptor($event)" (onDelete)="onDeleteSubscriptor($event)"
+                (onView)="onViewSubscriptor($event)" (onFunction1)="onRegisterAccess($event)" [iconFunction1]="'person_add'"
+                (onFunction2)="onFreezeSubscriptor($event)" [iconFunction2]="'ac_unit'"></app-my-table-paginator> -->
+
+    <app-table-subscriptor-list [indexNumber]="false" [HeadArray]="headArray" [GridArray]="subscriptorList"
+        [Title]="'Lista Suscriptores'" (onEdit)="onEditSubscriptor($event)" (onDelete)="onDeleteSubscriptor($event)"
+        (onView)="onViewSubscriptor($event)" (onFunction1)="onRegisterAccess($event)" [iconFunction1]="'person_add'"
+        (onFunction2)="onFreezeSubscriptor($event)" [iconFunction2]="'ac_unit'">
+    </app-table-subscriptor-list>
+
+
+    <!--! Primera -->
+    <!-- <app-my-reutilizable-table [indexNumber]="false" [HeadArray]="headArray" [GridArray]="subscriptorList"
+        [Title]="'Lista Suscriptores'" (onEdit)="onEditSubscriptor($event)" (onDelete)="onDeleteSubscriptor($event)"
+        (onView)="onViewSubscriptor($event)" (onFunction1)="onRegisterAccess($event)" [iconFunction1]="'person_add'"
+        (onFunction2)="onFreezeSubscriptor($event)" [iconFunction2]="'down'"></app-my-reutilizable-table> -->
+
+    <!--! Anda bien pero no tiene paginator -->
+    <div class="m-5 lg:w-4/5 overflow-x-auto  lg:overflow-x-hidden">
+        <app-my-reutilizable-table [title]="''" [indexNumber]="false" [HeadArray]="headArray"
+            [GridArray]="subscriptorList" (onEdit)="onEditSubscriptor($event)" (onDelete)="onDeleteSubscriptor($event)"
+            (onView)="onViewSubscriptor($event)" (onFunction1)="onRegisterAccess($event)" [iconFunction1]="'person_add'"
+            (onFunction2)="onFreezeSubscriptor($event)" [iconFunction2]="'ac_unit'"></app-my-reutilizable-table>
+    </div>
+
+</div>
+
+
+<!-- <button [routerLink]="'/suscriptores/1'"> IR a suscriptor 1 </button>
+<button [routerLink]="'/suscriptores/2'"> IR a suscriptor 2 </button>
+<button [routerLink]="'/suscriptores/3'"> IR a suscriptor 3 </button> -->

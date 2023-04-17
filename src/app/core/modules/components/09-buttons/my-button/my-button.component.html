@@ -1,0 +1,25 @@
+<!--
+  Componente de botón personalizado.
+  
+  Parámetros de entrada:
+  - icon: Icono a mostrar en el botón (opcional).
+  - title: Texto a mostrar en el botón (opcional).
+  - class: Clase CSS adicional a aplicar en el botón (opcional).
+  - click: Evento que se dispara cuando se hace clic en el botón (opcional).
+  
+  Ejemplo de uso:
+  <app-my-button
+    [icon]="'add'"
+    [title]="'Agregar'"
+    [class]="'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'"
+    (click)="onClick($event)"
+  ></app-my-button>
+-->
+<button (click)="onClick(click)" [ngClass]="class">
+  <ng-container *ngIf="icon">
+    <mat-icon class="hover:scale-110 hover:duration-200 duration-200">{{icon}}</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="title">
+    {{title}}
+  </ng-container>
+</button>

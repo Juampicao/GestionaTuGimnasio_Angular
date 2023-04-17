@@ -1,0 +1,42 @@
+<div class="layout  bg-cover bg-center h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-xlshadow-md">
+        <div>
+            <h1 class="text-2xl font-bold mb-4">Inicio de sesión</h1>
+            <form action="submit">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="username">
+                        Usuario
+                    </label>
+                    <app-my-input [label]="'Usuario'" [icon]="'login'" [type]="'text'" [required]="true"
+                        [control]="$any(form.get('user'))"></app-my-input>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="password">
+                        Contraseña
+                    </label>
+                    <app-my-input [label]="'Contraseña'" [icon]="'password'" [type]="'password'" [required]="true"
+                        [control]="$any(form.get('password'))"></app-my-input>
+                </div>
+                <div class="flex items-center mx-auto text-center my-2">
+                    <button type="submit"
+                        class="mx-auto bg-blue-600 hover:bg-blue-700 px-5 font-bold py-2.5 rounded-xl text-white hover:cursor-pointer focus:outline-none focus:shadow-outline {{!form.valid ? 'opacity-50 cursor-not-allowed' : ''}}"
+                        (click)="onSubmit()" [disabled]="!form.valid">Iniciar Sesion</button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <div class="flex mx-auto text-center my-2">
+                <button type="button" (click)="onDefaultData()">Cargar Data Defecto</button>
+            </div>
+            <div class="flex mx-auto text-center my-2">
+                <button type="button" (click)="onNonExistentUser()">Usuario Inexistente</button>
+            </div>
+
+            <div class="flex mx-auto text-center my-2">
+                <button type="button" (click)="onWrongPasswordData()">Contraseña Erronea</button>
+            </div>
+        </div>
+
+    </div>
+</div>

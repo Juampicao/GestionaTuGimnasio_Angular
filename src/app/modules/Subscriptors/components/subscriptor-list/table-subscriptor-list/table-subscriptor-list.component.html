@@ -1,0 +1,159 @@
+<!-- ! Si activo esta, se rompe por que la lee dinamica tambien -->
+<!-- 
+<ng-container *ngIf="!isLoading">
+    <mat-paginator [length]="totalItems" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        [pageSizeOptions]="[1, 2, 25, 100]" (page)="pageEvent = $event"></mat-paginator>
+    <table mat-table [dataSource]="dataSource" matSort>
+
+
+        <ng-container *ngFor="let column of displayedHeaders" [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | titlecase }}</th>
+            <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+
+
+        <tr *ngFor="let item of GridArray;let sr=index" class="border-b">
+            <td class="py-2 pl-4 pr-2" *ngIf="indexNumber">{{sr+1}}</td>
+            <td *ngFor="let head of HeadArray" [class]="'py-2 px-4 text-left border-l ' + head.ClassName">
+
+                <ng-container *ngIf="!head.ButtonTemplate">
+                    <div *ngIf="head.FieldName != ''">{{item[head.FieldName]}}</div>
+                    <div *ngIf="head.FieldName == ''" class="flex justify-evenly">
+                        <button *ngIf="onEdit" (click)="edit(item)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="onDelete" (click)="delete(item)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button *ngIf="onView" (click)="view(item)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="iconFunction1 && onFunction1" (click)="function1(item)">{{labelFunction1}}
+                            <mat-icon>{{iconFunction1}}</mat-icon>
+                        </button>
+                        <button *ngIf="iconFunction2 && onFunction2" (click)="function2(item)">{{labelFunction2}}
+                            <mat-icon>{{iconFunction2}}</mat-icon>
+                        </button>
+                        <button *ngIf="iconFunction3 && onFunction3" (click)="function3(item)">{{labelFunction3}}
+                            <mat-icon>{{iconFunction3}}</mat-icon>
+                        </button>
+                    </div>
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedHeaders;"></tr>
+
+    </table>
+
+</ng-container> -->
+
+
+<!--!  2° Tabla -->
+
+
+<ng-container *ngIf="isLoading">
+    <app-my-spiner></app-my-spiner>
+</ng-container>
+
+<ng-container *ngIf="!isLoading">
+    <div class="flex justify-evenly px-4 pt-2 w-full rounded-xl  " [ngClass]=" BackgroundColor">
+
+        <!-- ! 1° Buscar  -->
+        <!-- <mat-form-field class="w-1/2">
+            <mat-label>Buscar..</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar cualquier filtro.." #input>
+        </mat-form-field> -->
+
+        <!-- ! 2° Buscar  -->
+        <mat-form-field class="justify-start w-1/2 lg:w-1/3" appearance="outline">
+            <div class="input-container">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar cualquier filtro.." #input>
+            </div>
+        </mat-form-field>
+
+
+        <mat-paginator [length]="totalItems" [pageIndex]="pageIndex" [pageSize]="pageSize"
+            [pageSizeOptions]="[1, 2, 3, 25, 100]" (page)="pageEvent = $event"></mat-paginator>
+    </div>
+
+
+    <table mat-table [dataSource]="dataSource" matSort
+        [attr.class]="'w-full rounded-xl border scroll-x-auto ' + BackgroundColor">
+
+        <!-- Register Column -->
+        <ng-container matColumnDef="register">
+            <th mat-header-cell *matHeaderCellDef> Registro </th>
+            <td mat-cell *matCellDef="let element"> {{element.register}} </td>
+        </ng-container>
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Payment Status Column -->
+        <ng-container matColumnDef="paymentStatus">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.paymentStatus}} </td>
+        </ng-container>
+
+        <!-- Condition Column -->
+        <ng-container matColumnDef="condicion">
+            <th mat-header-cell *matHeaderCellDef> Condicion </th>
+            <td mat-cell *matCellDef="let element"> {{element.condicion}} </td>
+        </ng-container>
+
+        <!-- Date Expired Visual Column -->
+        <ng-container matColumnDef="dateExpiredVisual">
+            <th mat-header-cell *matHeaderCellDef> Fecha Expiracion </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateExpiredVisual}} </td>
+        </ng-container>
+
+        <!-- Plan Subscription Column -->
+        <ng-container matColumnDef="planSubscription">
+            <th mat-header-cell *matHeaderCellDef> Plan </th>
+            <td mat-cell *matCellDef="let element"> {{element.planSubscription}} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actiones </th>
+            <td mat-cell *matCellDef="let item">
+                <div>
+
+                    <app-my-button *ngIf="onEdit" [icon]="'edit'" (click)="edit(item)"></app-my-button>
+                    <app-my-button *ngIf="onDelete" [icon]="'delete'" (click)="delete(item)"></app-my-button>
+                    <app-my-button *ngIf="onView" [icon]="'visibility'" (click)="view(item)"></app-my-button>
+
+                    <app-my-button *ngIf="iconFunction1 && onFunction1" [icon]="iconFunction1"
+                        (click)="function1(item)">{{labelFunction1}}</app-my-button>
+
+                    <app-my-button *ngIf="iconFunction2 && onFunction2" [icon]="iconFunction2"
+                        (click)="function2(item)"></app-my-button>
+
+                    <app-my-button *ngIf="iconFunction3 && onFunction3" [icon]="iconFunction3"
+                        (click)="function3(item)">{{labelFunction3}}</app-my-button>
+
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- Row of Table -->
+        <tr mat-header-row *matHeaderRowDef="displayedHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedHeaders;"></tr>
+    </table>
+
+    <div class="text-center text-xl my-3">
+        <p *ngIf="isResultsEmpty">No hay resultados para esta busqueda</p>
+    </div>
+</ng-container>

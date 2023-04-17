@@ -1,0 +1,16 @@
+<ng-container *ngIf="isLoading">
+
+    <app-my-spiner></app-my-spiner>
+</ng-container>
+
+
+<ng-container *ngIf="!isLoading">
+    Lista de planes de suscripcion
+
+    <div class="m-5 lg:w-4/5 overflow-x-auto  lg:overflow-x-hidden">
+        <app-my-reutilizable-table [title]="''" [indexNumber]="false" [HeadArray]="headArrayPlanSubscription"
+            [GridArray]="planSubscriptionsList" (onEdit)="onEditPlanSubscription($event)"
+            (onDelete)="onDeletePlanSubscription($event)"
+            (onView)="onViewPlanSubscription($event)"></app-my-reutilizable-table>
+    </div>
+</ng-container>
